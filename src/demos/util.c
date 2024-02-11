@@ -22,7 +22,7 @@
  */
 
 #include "util.h"
-#include "../include/snakes.h"
+#include "../snakes.h"
 #include "lwp.h"
 #include <limits.h>
 #include <signal.h>

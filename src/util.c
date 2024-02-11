@@ -21,9 +21,9 @@
  *
  */
 
-#include "include/util.h"
-#include "include/lwp.h"
-#include "include/snakes.h"
+#include "util.h"
+#include "lwp.h"
+#include "snakes.h"
 #include <limits.h>
 #include <signal.h>
 #include <stdio.h>

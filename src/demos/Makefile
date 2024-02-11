@@ -39,16 +39,16 @@ hungry: hungrysnakes.o  util.o ../lib64/libPLN.so ../lib64/libsnakes.so
 nums: numbersmain.o  util.o ../lib64/libPLN.so 
 	$(LD) $(LDFLAGS) -o nums numbersmain.o -lPLN
 
-hungrysnakes.o: hungrysnakes.c ../include/lwp.h ../include/snakes.h
+hungrysnakes.o: hungrysnakes.c ../lwp.h ../snakes.h
 	$(CC) $(CFLAGS) -c hungrysnakes.c
 
-randomsnakes.o: randomsnakes.c ../include/lwp.h ../include/snakes.h
+randomsnakes.o: randomsnakes.c ../lwp.h ../snakes.h
 	$(CC) $(CFLAGS) -c randomsnakes.c
 
 numbermain.o: numbersmain.c lwp.h
 	$(CC) $(CFLAGS) -c numbersmain.c
 
-util.o: util.c ../include/lwp.h ../include/util.h ../include/snakes.h
+util.o: util.c ../lwp.h ../util.h ../snakes.h
 	$(CC) $(CFLAGS) -c util.c
 
 rs: snakes

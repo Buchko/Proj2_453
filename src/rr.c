@@ -6,13 +6,13 @@ static struct {
   int size;
 } RrState;
 
-void RrInit() {
+void rrInit() {
   ll *newList = (ll *)calloc(1, sizeof(ll));
   RrState.tail = RrState.head = newList;
   RrState.size = 0;
 }
 
-void RrShutdown() {
+void rrShutdown() {
   // loop through list and free everything
   for (ll *cur = RrState.head; cur != NULL; cur = cur->next) {
     ll *prev = cur;
@@ -21,7 +21,7 @@ void RrShutdown() {
     free(prev);
   }
 }
-void RrAdmit(thread *newThead) {
+void rrAdmit(thread newThead) {
   bool isFirstThread = RrState.head == NULL;
   if (isFirstThread) {
     RrState.tail->val = RrState.head->val = newThead;
@@ -31,7 +31,7 @@ void RrAdmit(thread *newThead) {
   RrState.size++;
 }
 
-void remove(thread *victim) {
+void rrRemove(thread victim) {
   // search for victim in list
   for (ll *cur = RrState.head; cur != NULL; cur = cur->next) {
     if (cur->val == victim) {
@@ -42,14 +42,19 @@ void remove(thread *victim) {
   RrState.size--;
 }
 
-thread *next() {
+thread rrNext() {
   if (RrState.size == 0) {
     return NULL;
   }
   // move head to next thread
-  thread *prev = RrState.head->val;
+  thread prev = RrState.head->val;
   RrState.head = popLl(RrState.head, &RrState.tail);
   return prev;
 }
 
-int qlen() { return RrState.size; }
+int rrQlen() { return RrState.size; }
+
+struct scheduler rrPublish = {rrInit, rrShutdown, rrAdmit,
+                              rrRemove, rrNext, rrQlen};
+
+scheduler RoundRobin = &rrPublish;

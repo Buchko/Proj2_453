@@ -61,7 +61,7 @@ typedef struct scheduler {
   void (*remove)(thread victim);   /* remove a thread from the pool */
   thread (*next)(void);            /* select a thread to schedule   */
   int (*qlen)(void);               /* number of ready threads       */
-} scheduler;
+} *scheduler;
 
 /* lwp functions */
 extern tid_t lwp_create(lwpfun, void *);
