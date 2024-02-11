@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -g -std=gnu99
+CFLAGS = -Wall -g3 -std=gnu99
 
 #Name
 NAME = lwp

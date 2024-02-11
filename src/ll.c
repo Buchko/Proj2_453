@@ -42,3 +42,14 @@ ll *popLl(ll *head, ll **tail) {
   *tail = head;
   return newHead;
 }
+
+ll* pushLl(ll *head,  ll** tail, void *val){
+    //creates if head is NULL, or appends if it isn't
+    if (head == NULL){
+        head = createLl(val);
+    } else {
+        appendLl(head, tail, val);
+    }
+    return head;
+}
+
