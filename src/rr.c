@@ -21,7 +21,6 @@ void rrShutdown() {
         free(prev);
     }
 }
-
 void rrAdmit(thread newThead) {
     bool isFirstThread = RrState.size == 0;
     if (isFirstThread) {

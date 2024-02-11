@@ -15,6 +15,10 @@ all: $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $^
 
 # Compile source files into object files
+%.o: %.S
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compile source files into object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 

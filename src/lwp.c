@@ -27,11 +27,44 @@ long getStackSize() {
     }
 }
 
+tid_t lwp_wait(int* status){
+    bool outOfThreads = lwpState.scheduler->qlen() <= 1;
+    if (outOfThreads){
+        return NO_THREAD;
+    }
+
+    //search through threads until we get to the first terminated one or we get back to the start
+    thread originalHead = lwpState.currentThread;
+    thread cur = originalHead;
+    do {
+        cur = lwpState.scheduler->next();
+    } while (cur != originalHead ||LWPTERMINATED(cur->status));
+    bool didTerminate = LWPTERMINATED(cur->status);
+    if (didTerminate) {
+        lwpState.scheduler->remove(cur);
+        //cycle through scheduler until we get back to where we started
+        while (cur != originalHead) {
+            cur = lwpState.scheduler->next();
+        }
+        tid_t tid = cur->tid;
+        free(cur);
+        return tid;
+    } else {
+        //handling the case when no threads are finished
+        //remove the current thread
+        lwpState.scheduler->remove(lwpState.currentThread);
+        //add it to the list of waiting threads
+        pushLl(lwpState.waitHead, &lwpState.waitTail, lwpState.currentThread);
+    }
+}
+
+
 void lwp_exit(int exitval) {
     lwpState.currentThread->status = MKTERMSTAT(LWP_TERM, exitval);
-    lwpState.scheduler->remove(lwpState.currentThread);
+//    lwpState.scheduler->remove(lwpState.currentThread);
     lwp_yield();
 }
+
 
 void lwp_yield() {
     printf("yield\n");

@@ -24,7 +24,7 @@ EXTRACLEAN = core $(PROGS)
 
 all: 	$(PROGS)
 
-allclean: clean
+callclean: clean
 	@rm -f $(EXTRACLEAN)
 
 clean:	
