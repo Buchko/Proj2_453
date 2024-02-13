@@ -14,4 +14,5 @@ void appendLl(ll *head, ll **tail, void *val);
 ll* pushLl(ll *head, ll **tail, void *val);
 ll *createLl(void *val);
 int removeLl(ll *head, ll *node);
-ll *popLl(ll *head, ll **tail);
+ll *popAndPushLl(ll *head, ll **tail);
+void *popLl(ll **head);

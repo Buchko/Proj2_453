@@ -37,11 +37,11 @@ void rrRemove(thread victim) {
     // search for victim in list
     for (ll *cur = RrState.head; cur != NULL; cur = cur->next) {
         if (cur->val == victim) {
+            RrState.size--;
             removeLl(RrState.head, cur);
             return;
         }
     }
-    RrState.size--;
 }
 
 thread rrNext() {
@@ -50,7 +50,7 @@ thread rrNext() {
     }
     // move head to next thread
     thread prev = RrState.head->val;
-    RrState.head = popLl(RrState.head, &RrState.tail);
+    RrState.head = popAndPushLl(RrState.head, &RrState.tail);
     return prev;
 }
 
